@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header" id="header">
+      <div class="container header-row">
+        <a href="/" class="brand" aria-label="Inicio">
+          <svg
+            class="mark"
+            width="34"
+            height="34"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M12 1 3 12l9 11 9-11-9-11Z" fill="#fff" opacity=".95" />
+            <path
+              d="M12 4.2 5.2 12 12 19.8 18.8 12 12 4.2Z"
+              fill="none"
+              stroke="#fff"
+              stroke-width="1.8"
+            />
+          </svg>
+        </a>
+
+        <nav class="main-nav" aria-label="Principal">
+          <ul>
+            <li><a href="#">vehículos</a></li>
+            <li><a href="#">plan rombo</a></li>
+            <li><a href="#">servicios</a></li>
+            <li><a href="#">financiación</a></li>
+            <li><a href="#">renault pro+</a></li>
+            <li><a href="#">usados</a></li>
+            <li><a href="#contacto">contáctenos</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-utils">
+          <button class="u-btn" data-modal="search">
+            <span class="ico">🔍</span><span>buscador</span>
+          </button>
+          <button class="u-btn" data-modal="map">
+            <span class="ico">📍</span><span>sucursales</span>
+          </button>
+          <button class="u-btn" data-modal="chat">
+            <span class="ico">💬</span><span>contacto</span>
+          </button>
+          <div class="macua">MACUA</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero" id="hero" aria-label="Destacados">
+      <div class="slider" data-autoplay="5500">
+        <article
+          class="slide active"
+          style="--img: url('/assets/img/hero-koleos.jpg')"
+        >
+          <div class="caption container">
+            <h1>nuevo Renault Koleos</h1>
+            <p>pensá en grande</p>
+            <a class="btn btn-light" href="#">descubrí más</a>
+          </div>
+        </article>
+
+        <article
+          class="slide"
+          style="--img: url('/assets/img/hero-megane.jpg')"
+        >
+          <div class="caption container">
+            <h1>Mégane E-Tech</h1>
+            <p>100% eléctrico</p>
+            <a class="btn btn-light" href="#">descubrí más</a>
+          </div>
+        </article>
+
+        <article
+          class="slide"
+          style="--img: url('/assets/img/hero-duster.jpg')"
+        >
+          <div class="caption container">
+            <h1>Duster</h1>
+            <p>robustez para todos los caminos</p>
+            <a class="btn btn-light" href="#">descubrí más</a>
+          </div>
+        </article>
+
+        <article class="slide" style="--img: url('/assets/img/hero-kwid.jpg')">
+          <div class="caption container">
+            <h1>Kwid E-Tech</h1>
+            <p>urbano, eficiente</p>
+            <a class="btn btn-light" href="#">descubrí más</a>
+          </div>
+        </article>
+
+        <button class="nav prev" aria-label="Anterior">‹</button>
+        <button class="nav next" aria-label="Siguiente">›</button>
+      </div>
+    </section>
+
+    <!-- Tiles -->
+    <section class="tiles" aria-label="Líneas de vehículos">
+      <div class="container grid-tiles">
+        <a class="tile" style="--img: url('/assets/img/tile-pasajeros.jpg')">
+          <div class="t-inner">
+            <h3>vehículos de pasajeros</h3>
+            <p>encontrá el vehículo más apropiado para vos y tu familia</p>
+          </div>
+        </a>
+
+        <a class="tile" style="--img: url('/assets/img/tile-utilitarios.jpg')">
+          <div class="t-inner">
+            <h3>utilitarios</h3>
+            <p>tu aliado de trabajo, capacidad y rendimiento</p>
+          </div>
+        </a>
+
+        <a class="tile" style="--img: url('/assets/img/tile-hibridos.jpg')">
+          <div class="t-inner">
+            <h3>híbridos</h3>
+            <p>la tecnología que reduce consumo y emisiones</p>
+          </div>
+        </a>
+
+        <a class="tile" style="--img: url('/assets/img/tile-electricos.jpg')">
+          <div class="t-inner">
+            <h3>eléctricos</h3>
+            <p>cero emisiones, máxima eficiencia</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="contacto">
+      <div class="container footer-row">
+        <small
+          >© <span id="y"></span> MACUA — sitio demo para práctica de
+          maquetación.</small
+        >
+        <div class="foot-links">
+          <a href="#">política de privacidad</a>
+          <a href="#">términos</a>
+          <a href="#">cookies</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp floating btn -->
+    <a
+      class="wa"
+      href="https://wa.me/5490000000000"
+      target="_blank"
+      rel="noopener"
+      aria-label="WhatsApp"
+    >
+      <img src="/assets/img/whatsapp.png" alt="WhatsApp" />
+    </a>
+
+    <!-- CHAT Asesor 0km -->
+    <div id="affchat" class="affchat" aria-live="polite">
+      <button class="affchat-bubble" aria-label="Abrir chat asesor 0km">
+        <span class="dot"></span>
+        <span class="txt">¿Me alcanza un 0km?</span>
+      </button>
+
+      <section class="affchat-window" role="dialog" aria-label="Asesor 0km">
+        <header class="affchat-header">
+          <div class="title">
+            <span class="logo">🚗</span>
+            <div>
+              <strong>Asesor 0km</strong>
+              <small>Calculá si hoy te alcanza</small>
+            </div>
+          </div>
+          <div class="hdr-actions">
+            <button class="min" aria-label="Minimizar">–</button>
+            <button class="cls" aria-label="Cerrar">×</button>
+          </div>
+        </header>
+
+        <div class="affchat-body" id="affchat-body"></div>
+        <div class="affchat-quick" id="affchat-quick"></div>
+
+        <form class="affchat-footer" id="affchat-form" autocomplete="off">
+          <input
+            id="affchat-input"
+            class="affchat-input"
+            type="text"
+            placeholder="Ej: 180000 por mes y 500000 de entrega"
+            inputmode="numeric"
+          />
+          <button class="affchat-send" type="submit">Enviar</button>
+        </form>
+      </section>
+    </div>
+
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>
