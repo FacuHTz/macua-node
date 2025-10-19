@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "seed": "node src/database/seed.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -15,9 +16,13 @@
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "sequelize": "^6.37.5",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
   }
 }
+
