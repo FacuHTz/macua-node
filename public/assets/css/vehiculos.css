@@ -1,0 +1,215 @@
+/* public/assets/css/vehiculos.css */
+
+/* Layout */
+.veh-layout {
+  margin-top: var(--header-h);
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 24px;
+  padding-block: 22px 60px;
+}
+
+/* Sidebar filtros */
+.filters {
+  position: sticky;
+  top: calc(var(--header-h) + 12px);
+  align-self: start;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+
+.f-block {
+  margin-bottom: 14px;
+}
+.f-block input[type="number"],
+.f-block input[type="search"],
+.f-block select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+/* Keep inline checkboxes compact */
+.check input[type="checkbox"] {
+  width: auto;
+  height: auto;
+}
+
+/* smaller inputs for side-by-side fields (two-column grid) */
+.f-grid-2 .f-block input[type="number"],
+.f-grid-2 .f-block select {
+  padding: 6px 8px;
+}
+.f-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.f-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 6px 0;
+}
+.check-col {
+  columns: 2;
+}
+.check-col .check {
+  break-inside: avoid;
+}
+
+.f-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.f-actions .btn {
+  width: 100%;
+}
+
+/* Resultados */
+.results {
+  min-height: 60vh;
+}
+.r-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+.r-title {
+  margin: 0;
+}
+.r-sub {
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+.r-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-rows: 180px 1fr auto;
+}
+.card .thumb {
+  background: #f6f6f6;
+  background-position: center;
+  background-size: cover;
+}
+.card .body {
+  padding: 12px 12px 0;
+}
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.badge {
+  border: 1.5px solid var(--brand);
+  color: #111;
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 2px 8px;
+  font-size: 12px;
+  background: #fffbe6;
+}
+.price {
+  font-weight: 800;
+  font-size: 20px;
+  margin: 4px 0 8px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.meta span {
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+.card .foot {
+  padding: 10px 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.card .btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--brand);
+  font-weight: 800;
+  cursor: pointer;
+}
+.card .btn-primary {
+  background: var(--brand);
+}
+.card .btn-light {
+  background: #fff;
+}
+
+.r-foot {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+.page-info {
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .veh-layout {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    position: static;
+  }
+  .grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  .grid-cards {
+    grid-template-columns: 1fr;
+  }
+}

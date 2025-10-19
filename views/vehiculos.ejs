@@ -1,0 +1,359 @@
+<!-- views/vehiculos.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %></title>
+
+    <!-- Fonts & base CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/vehiculos.css" />
+  </head>
+  <body>
+    <!-- Header (igual al de home pero con link activo a Vehículos) -->
+    <header class="site-header" id="header">
+      <div class="container header-row">
+        <a href="/" class="brand" aria-label="Inicio">
+          <span class="mark" aria-hidden="true">
+            <!-- Renault-like rhombus: outer and inner open segments for a more authentic mark -->
+            <svg
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-hidden="true"
+            >
+              <title>MACUA logo</title>
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="6"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              >
+                <path d="M50 6 L86 50" />
+                <path d="M94 50 L58 94" />
+                <path d="M50 94 L14 50" />
+                <path d="M6 50 L42 6" />
+              </g>
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="6"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              >
+                <path d="M50 20 L74 50" />
+                <path d="M78 50 L54 80" />
+                <path d="M50 80 L26 50" />
+                <path d="M22 50 L46 20" />
+              </g>
+            </svg>
+          </span>
+          <span class="brand-text">MACUA</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Principal">
+          <ul>
+            <li><a href="/">inicio</a></li>
+            <li><a href="/vehiculos" class="active">vehículos</a></li>
+            <li><a href="#">renault pro+</a></li>
+            <li><a href="#">usados</a></li>
+            <li><a href="#contacto">contáctenos</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-utils">
+          <button class="u-btn" data-modal="search">
+            <span class="ico">
+              <svg
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="6"
+                  stroke-width="1.8"
+                  stroke="currentColor"
+                  fill="none"
+                ></circle>
+                <path
+                  d="m52.3 43-23 43H23L0 43 22.9 0h6.5L6.5 43l19.6 36.9L45.7 43 34.3 21.5l3.3-6.1L52.3 43zM42.5 0h-6.6L13.1 43l14.7 27.6 3.2-6.1L19.6 43 39.2 6l19.6 37-22.9 43h6.6l22.8-43L42.5 0z"
+                  stroke-width="1.8"
+                  stroke="currentColor"
+                  fill="none"
+                />
+              </svg>
+            </span>
+            <span>buscador</span>
+          </button>
+          <button class="u-btn" data-modal="map">
+            <span class="ico">
+              <svg
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="m52.3 43-23 43H23L0 43 22.9 0h6.5L6.5 43l19.6 36.9L45.7 43 34.3 21.5l3.3-6.1L52.3 43zM42.5 0h-6.6L13.1 43l14.7 27.6 3.2-6.1L19.6 43 39.2 6l19.6 37-22.9 43h6.6l22.8-43L42.5 0z"
+                  stroke-width="1.6"
+                  stroke="currentColor"
+                  fill="none"
+                ></path>
+                <circle cx="12" cy="9" r="2.5" fill="currentColor"></circle>
+              </svg>
+            </span>
+            <span>sucursales</span>
+          </button>
+          <button class="u-btn" data-modal="chat">
+            <span class="ico">
+              <svg
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  stroke-width="1.6"
+                  stroke="currentColor"
+                  fill="none"
+                ></path>
+              </svg>
+            </span>
+            <span>contacto</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page container veh-layout">
+      <!-- Sidebar filtros -->
+      <aside class="filters" aria-label="Filtros">
+        <form id="filtersForm">
+          <div class="f-block">
+            <label class="f-label" for="q">Buscar</label>
+            <input
+              id="q"
+              name="q"
+              type="search"
+              placeholder="Ej: Duster, 1.3T, Iconic…"
+            />
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Tipo</span>
+            <label class="check"
+              ><input type="checkbox" name="tipo" value="0km" /> 0km</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="tipo" value="usado" /> usado</label
+            >
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Marca</span>
+            <div class="check-col">
+              <% meta.brands.forEach(b => { %>
+              <label class="check"
+                ><input type="checkbox" name="brand" value="<%= b %>" /> <%= b
+                %></label
+              >
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Carrocería</span>
+            <div class="check-col">
+              <% meta.bodies.forEach(b => { %>
+              <label class="check"
+                ><input type="checkbox" name="body" value="<%= b %>" /> <%= b
+                %></label
+              >
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Combustible</span>
+            <div class="check-col">
+              <% meta.fuels.forEach(f => { %>
+              <label class="check"
+                ><input type="checkbox" name="fuel" value="<%= f %>" /> <%= f
+                %></label
+              >
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Transmisión</span>
+            <div class="check-col">
+              <% meta.transmissions.forEach(t => { %>
+              <label class="check"
+                ><input type="checkbox" name="transmission" value="<%= t %>" />
+                <%= t %></label
+              >
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="f-grid-2">
+            <div class="f-block">
+              <label class="f-label" for="minPrice">Precio min</label>
+              <input
+                id="minPrice"
+                name="minPrice"
+                type="number"
+                min="0"
+                step="10000"
+                placeholder="0"
+              />
+            </div>
+            <div class="f-block">
+              <label class="f-label" for="maxPrice">Precio máx</label>
+              <input
+                id="maxPrice"
+                name="maxPrice"
+                type="number"
+                min="0"
+                step="10000"
+                placeholder="10000000"
+              />
+            </div>
+          </div>
+
+          <div class="f-grid-2">
+            <div class="f-block">
+              <label class="f-label" for="minYear">Año desde</label>
+              <input
+                id="minYear"
+                name="minYear"
+                type="number"
+                min="1990"
+                max="2100"
+              />
+            </div>
+            <div class="f-block">
+              <label class="f-label" for="maxYear">Año hasta</label>
+              <input
+                id="maxYear"
+                name="maxYear"
+                type="number"
+                min="1990"
+                max="2100"
+              />
+            </div>
+          </div>
+
+          <div class="f-grid-2">
+            <div class="f-block">
+              <label class="f-label" for="minKm">Km desde</label>
+              <input
+                id="minKm"
+                name="minKm"
+                type="number"
+                min="0"
+                step="1000"
+              />
+            </div>
+            <div class="f-block">
+              <label class="f-label" for="maxKm">Km hasta</label>
+              <input
+                id="maxKm"
+                name="maxKm"
+                type="number"
+                min="0"
+                step="1000"
+              />
+            </div>
+          </div>
+
+          <div class="f-block">
+            <span class="f-label">Ubicación</span>
+            <div class="check-col">
+              <% meta.locations.forEach(l => { %>
+              <label class="check"
+                ><input type="checkbox" name="location" value="<%= l %>" /> <%=
+                l %></label
+              >
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="f-actions">
+            <button type="submit" class="btn btn-primary">Aplicar</button>
+            <button type="button" id="btnReset" class="btn btn-light">
+              Limpiar
+            </button>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Resultados -->
+      <section class="results" aria-live="polite">
+        <header class="r-head">
+          <div>
+            <h1 class="r-title">Vehículos</h1>
+            <p class="r-sub"><span id="count">0</span> resultados</p>
+          </div>
+          <div class="r-controls">
+            <label for="sort">Ordenar</label>
+            <select id="sort" name="sort">
+              <option value="relevance">Relevancia</option>
+              <option value="price_asc">Precio: menor a mayor</option>
+              <option value="price_desc">Precio: mayor a menor</option>
+              <option value="year_desc">Año: más nuevo</option>
+              <option value="km_asc">Km: menor a mayor</option>
+            </select>
+
+            <select id="pageSize" name="pageSize" title="Cantidad por página">
+              <option value="12">12</option>
+              <option value="24">24</option>
+              <option value="36">36</option>
+            </select>
+          </div>
+        </header>
+
+        <div id="grid" class="grid-cards"></div>
+
+        <footer class="r-foot">
+          <button id="prev" class="btn btn-light" disabled>Anterior</button>
+          <span id="pageInfo" class="page-info">1 / 1</span>
+          <button id="next" class="btn btn-light" disabled>Siguiente</button>
+        </footer>
+      </section>
+    </main>
+
+    <!-- WhatsApp flotante -->
+    <a
+      href="https://wa.me/5493430000000"
+      class="wa-fab"
+      target="_blank"
+      rel="noopener"
+      aria-label="WhatsApp"
+    >
+      <img src="/assets/img/whatsapp.png" alt="WhatsApp" />
+    </a>
+
+    <!-- JS -->
+    <script src="/assets/js/main.js"></script>
+    <script id="meta-json" type="application/json">
+      <%- JSON.stringify(meta || {}) %>
+    </script>
+    <script>
+      window.__META__ = JSON.parse(
+        document.getElementById("meta-json").textContent
+      );
+    </script>
+    <script src="/assets/js/vehiculos.js"></script>
+  </body>
+</html>

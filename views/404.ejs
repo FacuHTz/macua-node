@@ -1,0 +1,42 @@
+<!-- views/404.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= title || 'No encontrado' %></title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <style>
+      main {
+        min-height: 60vh;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        margin-top: var(--header-h);
+      }
+      a.btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 14px;
+        border: 2px solid var(--brand);
+        border-radius: 12px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" id="header">
+      <div class="container header-row">
+        <a class="brand" href="/">MACUA</a>
+      </div>
+    </header>
+    <main class="container">
+      <div>
+        <h1>
+          😕 <%= message || 'El vehículo no existe o fue dado de baja.' %>
+        </h1>
+        <a href="/vehiculos" class="btn">Volver a vehículos</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -71,6 +71,83 @@ img {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
 
+/* Improved brand and header controls */
+.brand {
+  gap: 10px;
+  color: var(--brand);
+}
+.brand .mark {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+.brand .mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.brand .brand-text {
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.header-utils {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* header utility buttons (search, map, chat) */
+.u-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+.u-btn .ico {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.u-btn .ico svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+}
+.u-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+.u-btn:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.08);
+  outline-offset: 2px;
+}
+.site-header.scrolled .brand {
+  color: var(--ink);
+}
+.site-header.scrolled .u-btn {
+  background: #fff;
+  color: #111;
+  border-color: #ddd;
+}
+
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -122,9 +199,6 @@ img {
 /* Hero */
 .hero {
   position: relative;
-}
-.hero {
-  /* margin-top: var(--header-h); */
 }
 .slider {
   position: relative;
