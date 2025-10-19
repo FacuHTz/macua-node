@@ -307,14 +307,31 @@ const apiVehiculos = async (req, res) => {
     }
 
     // Incluir relaciones
+    const modeloWhere = {};
+    const marcaWhere = {};
+
+    // Filtros de carrocería
+    if (filtros.body.length > 0) {
+      modeloWhere.tipo_carroceria = { [Op.in]: filtros.body };
+    }
+
+    // Filtros de marca
+    if (filtros.brand.length > 0) {
+      marcaWhere.nombre = { [Op.in]: filtros.brand };
+    }
+
     const include = [
       {
         model: Modelo,
         as: "modelo",
+        where: Object.keys(modeloWhere).length > 0 ? modeloWhere : undefined,
+        required: true,
         include: [
           {
             model: Marca,
             as: "marca",
+            where: Object.keys(marcaWhere).length > 0 ? marcaWhere : undefined,
+            required: true,
           },
         ],
       },
@@ -325,20 +342,6 @@ const apiVehiculos = async (req, res) => {
         required: false,
       },
     ];
-
-    // Filtros de marca
-    if (filtros.brand.length > 0) {
-      include[0].include[0].where = {
-        nombre: { [Op.in]: filtros.brand },
-      };
-    }
-
-    // Filtros de carrocería
-    if (filtros.body.length > 0) {
-      include[0].where = {
-        tipo_carroceria: { [Op.in]: filtros.body },
-      };
-    }
 
     // Búsqueda por texto
     if (q) {

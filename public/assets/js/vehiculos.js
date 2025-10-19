@@ -64,7 +64,7 @@
     const thumb = v.image || "/assets/img/hero-duster.jpg";
     return `
       <article class="card">
-        <div class="thumb" style="background-image:url('${thumb}')"></div>
+        <a href="/vehiculos/${v.id}" class="thumb" style="background-image:url('${thumb}')" aria-label="Ver detalles de ${v.brand} ${v.model}"></a>
         <div class="body">
           <div class="badges">
             ${
@@ -74,7 +74,9 @@
             }
             ${v.financing ? `<span class="badge">financiación</span>` : ``}
           </div>
-          <h3>${v.brand} ${v.model} ${v.year || ""}</h3>
+          <a href="/vehiculos/${v.id}" class="card-title-link">
+            <h3>${v.brand} ${v.model} ${v.year || ""}</h3>
+          </a>
           <div class="price">${fmtARS(v.price)}</div>
           <div class="meta">
             ${
@@ -89,7 +91,7 @@
           </div>
         </div>
         <div class="foot">
-          <button class="btn btn-primary" data-id="${v.id}">Consultar</button>
+          <a href="/vehiculos/${v.id}" class="btn btn-primary">Ver detalles</a>
           <a class="btn btn-light" href="https://wa.me/5493430000000?text=${encodeURIComponent(
             `Hola! Me interesa el ${v.brand} ${v.model} ${v.year} (${fmtARS(
               v.price
