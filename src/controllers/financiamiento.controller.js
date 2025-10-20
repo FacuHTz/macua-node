@@ -14,7 +14,7 @@ exports.obtenerPlanes = async (req, res) => {
     const [planes] = await sequelize.query(`
       SELECT * FROM planes_financiamiento 
       WHERE activo = true 
-      ORDER BY prioridad ASC
+      ORDER BY plan_id ASC
     `);
     
     res.json(planes);

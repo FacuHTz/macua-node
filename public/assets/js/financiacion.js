@@ -15,12 +15,12 @@ async function cargarPlanes() {
         const planesGrid = document.getElementById('planesGrid');
         planesGrid.innerHTML = planes.map(plan => `
             <div class="plan-card">
-                <h3>${plan.nombre}</h3>
-                <p>${plan.descripcion}</p>
+                <h3>${plan.nombre_plan}</h3>
+                <p>${plan.caracteristicas}</p>
                 <div class="plan-rate">${plan.tasa_interes_anual}% TNA</div>
                 <div class="plan-details">
-                    ${plan.plazo_minimo_meses}-${plan.plazo_maximo_meses} meses
-                    • Anticipo desde ${plan.anticipo_minimo_porcentaje}%
+                    Hasta ${plan.plazo_meses} meses
+                    • Enganche desde ${plan.enganche_minimo_porcentaje}%
                 </div>
             </div>
         `).join('');

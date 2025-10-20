@@ -6,11 +6,51 @@ async function seedFinanciamiento() {
 
     // 1. Crear planes de financiamiento
     await sequelize.query(`
-      INSERT INTO planes_financiamiento (nombre, descripcion, tasa_interes_anual, plazo_minimo_meses, plazo_maximo_meses, anticipo_minimo_porcentaje, monto_minimo, monto_maximo, activo, prioridad)
+      INSERT INTO planes_financiamiento (
+        nombre_plan, caracteristicas, entidad_financiera, plazo_meses, 
+        tasa_interes_anual, enganche_minimo_porcentaje, monto_minimo, 
+        monto_maximo, comision_apertura, requiere_aval, activo
+      )
       VALUES 
-        ('Plan Tradicional', 'Financiamiento estándar con tasa competitiva', 18.5, 12, 60, 20, 5000, 50000, true, 1),
-        ('Plan 0% Interés', 'Sin interés en 12 cuotas (promoción)', 0, 12, 12, 30, 10000, 30000, true, 2),
-        ('Plan Flex', 'Máxima flexibilidad en plazos y anticipo', 22.0, 6, 72, 10, 3000, 100000, true, 3)
+        (
+          'Plan Tradicional', 
+          'Financiamiento estándar con tasa competitiva. Ideal para compras de vehículos nuevos y usados.',
+          'Banco MACUA',
+          60,
+          18.5,
+          20,
+          5000,
+          50000,
+          2.5,
+          false,
+          true
+        ),
+        (
+          'Plan 0% Interés', 
+          'Sin interés en 12 cuotas. Promoción especial para vehículos 0km seleccionados.',
+          'Renault Financiación',
+          12,
+          0,
+          30,
+          10000,
+          30000,
+          0,
+          false,
+          true
+        ),
+        (
+          'Plan Flex', 
+          'Máxima flexibilidad en plazos y anticipo. Hasta 72 meses de financiamiento.',
+          'Banco MACUA',
+          72,
+          22.0,
+          10,
+          3000,
+          100000,
+          3.0,
+          true,
+          true
+        )
       ON CONFLICT DO NOTHING;
     `);
     console.log('✅ Planes de financiamiento creados');
@@ -20,11 +60,12 @@ async function seedFinanciamiento() {
       INSERT INTO tasas_vigentes (plan_financiamiento_id, tasa_interes, fecha_inicio, fecha_fin, activa)
       SELECT plan_id, tasa_interes_anual, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 year', true
       FROM planes_financiamiento
+      WHERE activo = true
       ON CONFLICT DO NOTHING;
     `);
     console.log('✅ Tasas vigentes creadas');
 
-    // 3. Crear condiciones financieras
+    // 3. Crear condiciones financieras (ejemplos de cuotas)
     await sequelize.query(`
       INSERT INTO condiciones_financieras (plan_financiamiento_id, plazo_meses, tasa_interes, cuota_ejemplo_10000, vigente)
       VALUES
@@ -52,7 +93,7 @@ async function seedFinanciamiento() {
         ('Tasa de interés', 'Porcentaje anual que se cobra por el préstamo. Determina cuánto pagarás de más por financiar.', 'financiamiento', '["Con tasa del 18.5% anual, pagarás aproximadamente 1.54% mensual"]'),
         ('Plazo', 'Cantidad de meses en los que pagarás el préstamo. A mayor plazo, cuotas más bajas pero más interés total.', 'financiamiento', '["12 meses = cuotas altas, poco interés", "60 meses = cuotas bajas, más interés"]'),
         ('Cuota mensual', 'Monto fijo que pagarás cada mes hasta completar el préstamo.', 'financiamiento', '["Incluye capital + interés"]'),
-        ('CFT', 'Costo Financiero Total. Incluye tasa de interés más todos los gastos adicionales.', 'financiamiento', '["Si la tasa es 18.5% y hay gastos, el CFT puede ser 20%"]')
+        ('Enganche', 'Sinónimo de anticipo. Pago inicial al momento de adquirir el vehículo.', 'financiamiento', '["Enganche mínimo: 20% del valor del vehículo"]')
       ON CONFLICT DO NOTHING;
     `);
     console.log('✅ Glosario de términos creado');
