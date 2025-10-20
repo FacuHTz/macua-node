@@ -51,7 +51,7 @@ exports.chatFinanciamiento = async (req, res) => {
     await sequelize.query(`
       INSERT INTO mensajes_ia (conversacion_ia_id, tipo_emisor, contenido, timestamp)
       VALUES ($1, 'usuario', $2, NOW())
-    `, [convId, mensaje]);
+    `, { bind: [convId, mensaje] });
     
     // Obtener contexto (últimos mensajes)
     const [historial] = await sequelize.query(`
@@ -60,7 +60,7 @@ exports.chatFinanciamiento = async (req, res) => {
       WHERE conversacion_ia_id = $1 
       ORDER BY timestamp DESC 
       LIMIT 10
-    `, [convId]);
+    `, { bind: [convId] });
     
     // Obtener datos de BD para el contexto
     const [planes] = await sequelize.query(`
@@ -147,7 +147,7 @@ Responde de forma conversacional y profesional.`;
     await sequelize.query(`
       INSERT INTO mensajes_ia (conversacion_ia_id, tipo_emisor, contenido, timestamp)
       VALUES ($1, 'ia', $2, NOW())
-    `, [convId, respuesta]);
+    `, { bind: [convId, respuesta] });
     
     res.json({
       conversacion_id: convId,
