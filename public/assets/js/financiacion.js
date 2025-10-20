@@ -16,7 +16,7 @@ async function cargarPlanes() {
         planesGrid.innerHTML = planes.map(plan => `
             <div class="plan-card">
                 <h3>${plan.nombre_plan}</h3>
-                <p>${plan.caracteristicas}</p>
+                <p>${plan.entidad_financiera}</p>
                 <div class="plan-rate">${plan.tasa_interes_anual}% TNA</div>
                 <div class="plan-details">
                     Hasta ${plan.plazo_meses} meses

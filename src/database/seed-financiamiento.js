@@ -4,53 +4,17 @@ async function seedFinanciamiento() {
   try {
     console.log('🌱 Iniciando seed de financiamiento...');
 
-    // 1. Crear planes de financiamiento
+    // 1. Crear planes de financiamiento (usando columnas reales)
     await sequelize.query(`
       INSERT INTO planes_financiamiento (
-        nombre_plan, caracteristicas, entidad_financiera, plazo_meses, 
-        tasa_interes_anual, enganche_minimo_porcentaje, monto_minimo, 
-        monto_maximo, comision_apertura, requiere_aval, activo
+        nombre_plan, entidad_financiera, plazo_meses, tasa_interes_anual,
+        enganche_minimo_porcentaje, monto_minimo, monto_maximo,
+        comision_apertura, requiere_aval, activo
       )
       VALUES 
-        (
-          'Plan Tradicional', 
-          'Financiamiento estándar con tasa competitiva. Ideal para compras de vehículos nuevos y usados.',
-          'Banco MACUA',
-          60,
-          18.5,
-          20,
-          5000,
-          50000,
-          2.5,
-          false,
-          true
-        ),
-        (
-          'Plan 0% Interés', 
-          'Sin interés en 12 cuotas. Promoción especial para vehículos 0km seleccionados.',
-          'Renault Financiación',
-          12,
-          0,
-          30,
-          10000,
-          30000,
-          0,
-          false,
-          true
-        ),
-        (
-          'Plan Flex', 
-          'Máxima flexibilidad en plazos y anticipo. Hasta 72 meses de financiamiento.',
-          'Banco MACUA',
-          72,
-          22.0,
-          10,
-          3000,
-          100000,
-          3.0,
-          true,
-          true
-        )
+        ('Plan Tradicional', 'Banco MACUA', 60, 18.5, 20, 5000, 50000, 2.5, false, true),
+        ('Plan 0% Interés', 'Renault Financiación', 12, 0, 30, 10000, 30000, 0, false, true),
+        ('Plan Flex', 'Banco MACUA', 72, 22.0, 10, 3000, 100000, 3.0, true, true)
       ON CONFLICT DO NOTHING;
     `);
     console.log('✅ Planes de financiamiento creados');
