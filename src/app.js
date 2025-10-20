@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 
 const webRoutes = require("./routes/web");
+const financiamientoRoutes = require("./routes/financiamiento");
 
 const app = express();
 
@@ -47,6 +48,8 @@ app.use("/api", apiLimiter);
 
 /* Rutas web */
 app.use("/", webRoutes);
+app.use("/financiacion", financiamientoRoutes);
+app.use("/api/financiamiento", financiamientoRoutes);
 
 /* Healthcheck y ping */
 app.get("/health", (_req, res) => res.json({ ok: true }));

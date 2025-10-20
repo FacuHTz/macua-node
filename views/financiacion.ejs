@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financiación - MACUA</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/financiacion.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main class="financiacion-page">
+        <section class="hero-financiacion">
+            <div class="container">
+                <h1>Financiá tu Renault</h1>
+                <p>Calculá tu cuota en segundos con nuestro asistente virtual</p>
+            </div>
+        </section>
+
+        <section class="chat-financiacion">
+            <div class="container">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-avatar">
+                            <img src="/assets/img/bot-avatar.png" alt="Asistente" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Ccircle cx=%2225%22 cy=%2225%22 r=%2225%22 fill=%22%23ffcc00%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2224%22%3E🤖%3C/text%3E%3C/svg%3E'">
+                        </div>
+                        <div class="chat-info">
+                            <h3>Asistente de Financiación</h3>
+                            <span class="status">En línea</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                ¡Hola! 👋 Soy tu asistente de financiación. Te ayudaré a calcular la mejor opción para tu Renault.
+                                <br><br>
+                                ¿En qué vehículo estás interesado? Puedes decirme el modelo o el precio aproximado.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input">
+                        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autocomplete="off">
+                        <button id="sendBtn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planes-info">
+                    <h2>Nuestros Planes</h2>
+                    <div class="planes-grid" id="planesGrid">
+                        <div class="plan-card loading">Cargando planes...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/assets/js/financiacion.js"></script>
+</body>
+</html>
+
