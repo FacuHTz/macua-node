@@ -1,11 +1,11 @@
-const { sequelize } = require('../models');
-const { OpenAI } = require('openai');
+const { sequelize } = require("../models");
+const { OpenAI } = require("openai");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Mostrar página de financiación
 exports.mostrarPagina = (req, res) => {
-  res.render('financiacion', { title: 'Financiación' });
+  res.render("financiacion", { title: "Financiación" });
 };
 
 // Obtener planes de financiamiento
@@ -16,11 +16,11 @@ exports.obtenerPlanes = async (req, res) => {
       WHERE activo = true 
       ORDER BY plan_id ASC
     `);
-    
+
     res.json(planes);
   } catch (error) {
-    console.error('Error obteniendo planes:', error);
-    res.status(500).json({ error: 'Error al obtener planes' });
+    console.error("Error obteniendo planes:", error);
+    res.status(500).json({ error: "Error al obtener planes" });
   }
 };
 
@@ -28,7 +28,7 @@ exports.obtenerPlanes = async (req, res) => {
 exports.chatFinanciamiento = async (req, res) => {
   try {
     const { conversacion_id, mensaje } = req.body;
-    
+
     // Obtener o crear conversación
     let convId = conversacion_id;
     if (!convId) {
@@ -46,22 +46,28 @@ exports.chatFinanciamiento = async (req, res) => {
       `);
       convId = result[0].conversacion_ia_id;
     }
-    
+
     // Guardar mensaje del usuario
-    await sequelize.query(`
+    await sequelize.query(
+      `
       INSERT INTO mensajes_ia (conversacion_ia_id, tipo_emisor, contenido, timestamp)
       VALUES ($1, 'usuario', $2, NOW())
-    `, { bind: [convId, mensaje] });
-    
+    `,
+      { bind: [convId, mensaje] }
+    );
+
     // Obtener contexto (últimos mensajes)
-    const [historial] = await sequelize.query(`
+    const [historial] = await sequelize.query(
+      `
       SELECT tipo_emisor, contenido 
       FROM mensajes_ia 
       WHERE conversacion_ia_id = $1 
       ORDER BY timestamp DESC 
       LIMIT 10
-    `, { bind: [convId] });
-    
+    `,
+      { bind: [convId] }
+    );
+
     // Obtener datos de BD para el contexto
     const [planes] = await sequelize.query(`
       SELECT 
@@ -78,7 +84,7 @@ exports.chatFinanciamiento = async (req, res) => {
       FROM planes_financiamiento 
       WHERE activo = true
     `);
-    
+
     const [vehiculos] = await sequelize.query(`
       SELECT 
         v.vehiculo_id, 
@@ -101,7 +107,7 @@ exports.chatFinanciamiento = async (req, res) => {
       WHERE activo = true AND categoria = 'financiero'
       LIMIT 10
     `);
-    
+
     // Construir prompt para IA
     const prompt = `Eres un asistente de financiamiento de una concesionaria Renault. Ayuda al cliente a calcular cuotas.
 
@@ -112,10 +118,13 @@ VEHÍCULOS DISPONIBLES:
 ${JSON.stringify(vehiculos, null, 2)}
 
 GLOSARIO (para explicar términos):
-${glosario.map(g => `${g.termino}: ${g.definicion_simple}`).join('\n')}
+${glosario.map((g) => `${g.termino}: ${g.definicion_simple}`).join("\n")}
 
 HISTORIAL DE CONVERSACIÓN:
-${historial.reverse().map(m => `${m.tipo_emisor}: ${m.contenido}`).join('\n')}
+${historial
+  .reverse()
+  .map((m) => `${m.tipo_emisor}: ${m.contenido}`)
+  .join("\n")}
 
 MENSAJE ACTUAL DEL CLIENTE: ${mensaje}
 
@@ -132,34 +141,35 @@ INSTRUCCIONES:
 8. Si no entiendes, pide aclaración de forma cortés
 
 Responde de forma conversacional y profesional.`;
-    
+
     // Llamar a OpenAI
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 300
+      max_tokens: 300,
     });
-    
+
     const respuesta = completion.choices[0].message.content;
-    
+
     // Guardar respuesta de IA
-    await sequelize.query(`
+    await sequelize.query(
+      `
       INSERT INTO mensajes_ia (conversacion_ia_id, tipo_emisor, contenido, timestamp)
       VALUES ($1, 'ia', $2, NOW())
-    `, { bind: [convId, respuesta] });
-    
+    `,
+      { bind: [convId, respuesta] }
+    );
+
     res.json({
       conversacion_id: convId,
-      respuesta: respuesta
+      respuesta: respuesta,
     });
-    
   } catch (error) {
-    console.error('Error en chat:', error);
-    res.status(500).json({ 
-      error: 'Error procesando mensaje',
-      respuesta: 'Lo siento, hubo un error. ¿Puedes reformular tu pregunta?'
+    console.error("Error en chat:", error);
+    res.status(500).json({
+      error: "Error procesando mensaje",
+      respuesta: "Lo siento, hubo un error. ¿Puedes reformular tu pregunta?",
     });
   }
 };
-
